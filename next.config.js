@@ -10,6 +10,14 @@ const nextConfig = {
           {
             key: 'Access-Control-Allow-Origin',
             value: '*'
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: 'frame-ancestors *'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'ALLOWALL'
           }
         ]
       }
