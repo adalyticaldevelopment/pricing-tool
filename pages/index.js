@@ -6,17 +6,26 @@ export default function Home() {
   const [country, setCountry] = useState('au');
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
+  const [keywordData, setKeywordData] = useState(null);
+  const [keywordError, setKeywordError] = useState('');
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setError('');
     setData(null);
+    setKeywordData(null);
+    setKeywordError('');
 
     try {
       const res = await fetch(`/api/analyse-prices?q=${encodeURIComponent(query)}&country=${country}`);
       const json = await res.json();
       if (json.error) setError(json.error);
       else setData(json);
+
+      const keywordRes = await fetch(`/api/keyword-data?keyword=${encodeURIComponent(query)}&country=${country}`);
+      const keywordJson = await keywordRes.json();
+      if (keywordJson.error) setKeywordError(keywordJson.error);
+      else setKeywordData(keywordJson);
     } catch {
       setError('Something went wrong');
     }
@@ -37,7 +46,7 @@ export default function Home() {
     link.href = 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
-    document.body.style.backgroundColor = '#E9FEE1';
+    document.body.style.backgroundColor = 'transparent';
     document.body.style.margin = 0;
     document.body.style.fontFamily = "'DM Sans', sans-serif";
   }, []);
@@ -59,7 +68,7 @@ export default function Home() {
   };
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: '2rem', maxWidth: '1200px', margin: '0 auto', color: '#fff' }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: '2rem', maxWidth: '1200px', margin: '0 auto', color: '#fff', background: 'transparent' }}>
       <div style={{
         display: 'flex',
         gap: '2.5rem',
@@ -90,7 +99,7 @@ export default function Home() {
                 borderRadius: '8px 0 0 8px',
                 border: '1px solid #1F4A1B',
                 borderRight: 'none',
-                background: '#0F2D0C',
+                background: 'transparent',
                 color: '#fff',
                 fontWeight: 500,
                 outline: 'none'
@@ -105,7 +114,7 @@ export default function Home() {
                 border: '1px solid #1F4A1B',
                 borderRight: 'none',
                 borderLeft: 'none',
-                background: '#081705',
+                background: 'transparent',
                 color: '#fff',
                 fontWeight: 500,
                 outline: 'none',
@@ -145,7 +154,7 @@ export default function Home() {
           {data && (
             <>
               <div style={{
-                backgroundColor: '#0F2D0C',
+                backgroundColor: 'transparent',
                 padding: '1.25rem',
                 borderRadius: '12px',
                 marginBottom: '1.75rem',
@@ -189,7 +198,7 @@ export default function Home() {
             }}>
               {data.topSix.map((item, i) => (
                 <div key={i} style={{
-                  background: '#0F2D0C',
+                  background: 'transparent',
                   borderRadius: '8px',
                   padding: '0.5rem',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.1)',

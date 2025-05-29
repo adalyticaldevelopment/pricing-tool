@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
     const query = req.query.q;
     const country = req.query.country || 'au';
-    const apiKey = "b42ac4267104b488cf116377c2659b461a88d05f758045cef69559e4e51b3438";
+    const apiKey = "c9d956f0b8865c7deccc2a0f0a9afe07726efa8e22bb51d9f63be8bdbc4662fc";
   
     if (!query) {
       return res.status(400).json({ error: "Missing search query" });
